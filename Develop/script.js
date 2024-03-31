@@ -18,6 +18,24 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
+    const taskCard = $('<div>')
+    .addClass('card task-card draggable')
+    .attr('id', task.id);
+  const cardHeader = $('<div>').addClass('card-header h4').text(project.name);
+  const cardBody = $('<div>').addClass('card-body');
+  const cardTitle = $('<p>').addClass('card-title').text(task.title);
+  const cardDueDate = $('<p>').addClass('card-text').text(task.dueDate);
+  const cardDeleteBtn = $('<button>')
+    .addClass('btn btn-danger delete')
+    .text('Delete')
+    .attr('data-project-id', project.id);
+  cardDeleteBtn.on('click', handleDeleteProject);
+
+    // ? Gather all the elements created above and append them to the correct elements.
+    cardBody.append(cardTitle, cardDueDate, cardDeleteBtn);
+    taskCard.append(cardHeader, cardBody);
+
+  return taskCard;
 
 }
 
