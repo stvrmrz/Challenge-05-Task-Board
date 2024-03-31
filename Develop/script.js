@@ -2,6 +2,14 @@
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
+// Check if 'taskList' or 'nextId' is null or undefined and assign default values.
+if (!taskList) {
+    taskList = [];
+}
+if (!nextId) {
+    nextId = 1;
+}
+
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
 
