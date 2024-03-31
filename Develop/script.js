@@ -11,8 +11,9 @@ if (!nextId) {
 }
 
 // Todo: create a function to generate a unique task id
+// Returns the nextId and then increments it
 function generateTaskId() {
-
+    return nextId++;
 }
 
 // Todo: create a function to create a task card
