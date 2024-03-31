@@ -23,16 +23,31 @@ function createTaskCard(task) {
     .attr('id', task.id);
   const cardHeader = $('<div>').addClass('card-header h4').text(project.name);
   const cardBody = $('<div>').addClass('card-body');
-  const cardTitle = $('<p>').addClass('card-title').text(task.title);
+  const cardTitle = $('<h5>').addClass('card-title').text(task.title);
   const cardDueDate = $('<p>').addClass('card-text').text(task.dueDate);
+  const cardDescription = $('<p>').addClass('card-text').text(task.type);
   const cardDeleteBtn = $('<button>')
     .addClass('btn btn-danger delete')
     .text('Delete')
     .attr('data-project-id', project.id);
   cardDeleteBtn.on('click', handleDeleteProject);
 
+  // ? Sets the card background color based on due date. Only apply the styles if the dueDate exists and the status is not done.
+  if (project.dueDate && project.status !== 'done') {
+    const now = dayjs();
+    const taskDueDate = dayjs(project.dueDate, 'DD/MM/YYYY');
+
+    // ? If the task is due today, make the card yellow. If it is overdue, make it red.
+    if (now.isSame(taskDueDate, 'day')) {
+      taskCard.addClass('bg-warning text-white');
+    } else if (now.isAfter(taskDueDate)) {
+      taskCard.addClass('bg-danger text-white');
+      cardDeleteBtn.addClass('border-light');
+    }
+  }
+
     // ? Gather all the elements created above and append them to the correct elements.
-    cardBody.append(cardTitle, cardDueDate, cardDeleteBtn);
+    cardBody.append(cardTitle, cardDueDate, cardDescription, cardDeleteBtn);
     taskCard.append(cardHeader, cardBody);
 
   return taskCard;
