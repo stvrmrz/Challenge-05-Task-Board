@@ -10,14 +10,12 @@ if (!nextId) {
     nextId = 1;
 }
 
-// Todo: create a function to generate a unique task id
 // Returns the nextId and then increments it
 function generateTaskId() {
     return nextId++;
 }
 
-// Todo: create a function to create a task card
-// NEED TO CHANGE CONSTS AND ATTRIBUTES???
+// A function to create a task card
 function createTaskCard(task) {
     const taskCard = $('<div>')
         .addClass('card task-card draggable')
@@ -53,7 +51,7 @@ function createTaskCard(task) {
     return taskCard;
 }
 
-// Todo: create a function to render the task list and make cards draggable
+// A function to render the task list and make cards draggable
 function renderTaskList() {
     // Clear existing task cards
     $('#todo-cards').empty();
@@ -83,11 +81,21 @@ function renderTaskList() {
         zIndex: 1000,
         scroll: false,
         containment: 'document',
-        helper: 'clone'
+         // This is the function that creates the clone of the card that is dragged. This is purely visual and does not affect the data.
+        helper: function (e) {
+        // Check if the target of the drag event is the card itself or a child element. If it is the card itself, clone it, otherwise find the parent card  that is draggable and clone that.
+        const original = $(e.target).hasClass('ui-draggable')
+          ? $(e.target)
+          : $(e.target).closest('.ui-draggable');
+        // Return the clone with the width set to the width of the original card. This is so the clone does not take up the entire width of the lane. This is to also fix a visual bug where the card shrinks as it's dragged to the right.
+        return original.clone().css({
+          width: original.outerWidth(),
+        });
+      },
     });
 }
 
-// Todo: create a function to handle adding a new task
+// A function to handle adding a new task
 function handleAddTask(event){
     event.preventDefault(); // Prevent the form from submitting normally
 
@@ -125,7 +133,7 @@ function handleAddTask(event){
     $('#taskDescription').val('');
     $('#dueDate').val('');
 }
-// Todo: create a function to handle dropping a task onto a lane
+// A function to handle dropping a task onto a lane
 function handleDrop(event, ui) {
     const taskId = ui.draggable.attr('id');
     const status = $(event.target).attr('id');
@@ -143,7 +151,7 @@ function handleDrop(event, ui) {
     }
 }
 
-// Todo: create a function to handle deleting a task
+// A function to handle deleting a task
 function handleDeleteTask(event) {
     const taskId = $(this).attr('data-task-id');
     
