@@ -31,23 +31,24 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="formModalLabel">Add Task</h5>
+                        <!-- Close button for better user experience -->
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="addTaskForm">
+                        <form id="addTaskForm"> <!-- Form for adding tasks -->
                             <div class="mb-3">
-                                <label for="taskTitle" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="taskTitle">
+                                <label for="taskTitle" class="form-label">Title</label> <!-- Label for task title input -->
+                                <input type="text" class="form-control" id="taskTitle"> <!-- Input field for task title -->
                             </div>
                             <div class="mb-3">
-                                <label for="taskDescription" class="form-label">Description</label>
-                                <textarea class="form-control" id="taskDescription" rows="3"></textarea>
+                                <label for="taskDescription" class="form-label">Description</label> <!-- Label for task description textarea -->
+                                <textarea class="form-control" id="taskDescription" rows="3"></textarea> <!-- Textarea for task description -->
                             </div>
                             <div class="mb-3">
-                                <label for="dueDate" class="form-label">Due Date</label>
-                                <input type="text" class="form-control" id="dueDate">
+                                <label for="dueDate" class="form-label">Due Date</label> <!-- Label for due date input -->
+                                <input type="text" class="form-control" id="dueDate"> <!-- Input field for due date -->
                             </div>
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="submit" class="btn btn-primary">Add</button> <!-- Button to submit the form -->
                         </form>
                     </div>
                 </div>
