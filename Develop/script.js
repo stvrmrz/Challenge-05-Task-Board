@@ -24,7 +24,7 @@ function createTaskCard(task) {
         .attr('id', task.id);
     const cardBody = $('<div>').addClass('card-body');
     const cardTitle = $('<h5>').addClass('card-title').text(task.title);
-    const cardDueDate = $('<p>').addClass('card-text').text("Due Date: " + task.dueDate);
+    const cardDueDate = $('<p>').addClass('card-text').text(task.dueDate);
     const cardDescription = $('<p>').addClass('card-text').text(task.description);
     const cardDeleteBtn = $('<button>')
         .addClass('btn btn-danger delete')
