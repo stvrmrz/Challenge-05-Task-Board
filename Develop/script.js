@@ -66,7 +66,7 @@ function renderTaskList() {
         const taskCard = createTaskCard(task);
 
         // Append the task card to the corresponding lane based on task status
-        if (task.status === 'todo') {
+        if (task.status === 'to-do') {
             $('#todo-cards').append(taskCard);
         } else if (task.status === 'in-progress') {
             $('#in-progress-cards').append(taskCard);
@@ -87,6 +87,76 @@ function renderTaskList() {
     });
 }
 
+// Todo: create a function to handle adding a new task
+function handleAddTask(event){
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Get input values from the form
+    const title = $('#taskTitle').val();
+    const description = $('#taskDescription').val();
+    const dueDate = $('#dueDate').val();
+
+    // Create a new task object
+    const newTask = {
+        id: generateTaskId(), // Generate a unique ID for the task
+        title: title,
+        description: description,
+        dueDate: dueDate,
+        status: 'to-do' // Assuming new tasks are always in the 'todo' status
+    };
+
+    // Add the new task to the task list
+    taskList.push(newTask);
+
+    // Save the updated task list to localStorage
+    localStorage.setItem('tasks', JSON.stringify(taskList));
+
+    // Increment nextId for the next task
+    nextId++;
+
+    // Render the updated task list
+    renderTaskList();
+
+    // Close the modal after adding the task
+    $('#formModal').modal('hide');
+
+    // Clear the form fields
+    $('#taskTitle').val('');
+    $('#taskDescription').val('');
+    $('#dueDate').val('');
+}
+// Todo: create a function to handle dropping a task onto a lane
+function handleDrop(event, ui) {
+    const taskId = ui.draggable.attr('id');
+    const status = $(event.target).attr('id');
+    
+    // Update the status of the dropped task
+    const taskIndex = taskList.findIndex(task => task.id.toString() === taskId);
+    if (taskIndex !== -1) {
+        taskList[taskIndex].status = status;
+        
+        // Save the updated task list to localStorage
+        localStorage.setItem('tasks', JSON.stringify(taskList));
+        
+        // Re-render the task list
+        renderTaskList();
+    }
+}
+
+// Todo: create a function to handle deleting a task
+function handleDeleteTask(event) {
+    const taskId = $(this).attr('data-task-id');
+    
+    // Remove the task from the taskList array
+    taskList = taskList.filter(task => task.id.toString() !== taskId);
+    
+    // Save the updated task list to localStorage
+    localStorage.setItem('tasks', JSON.stringify(taskList));
+    
+    // Re-render the task list
+    renderTaskList();
+}
+
 // When the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
     renderTaskList(); // Render task list
@@ -99,5 +169,8 @@ $(document).ready(function () {
         drop: handleDrop
     });
     // Make the due date field a date picker
-    $('#dueDate').datepicker();
+    $('#dueDate').datepicker({
+        changeMonth: true,
+        changeYear: true,
+    });
 });
