@@ -62,7 +62,7 @@ reccomended to install Visual Studio code as well.
 <!-- USAGE EXAMPLES -->
 ## Link to Deployed Application
 
-_Here is a link to my [Deployed Blog Web Page](https://stvrmrz.github.io/Challenge-04-Blog/)_
+_Here is a link to my [Deployed Blog Web Page](https://stvrmrz.github.io/Challenge-05-Task-Board/)_
 
 <!-- ROADMAP -->
 ## Roadmap
